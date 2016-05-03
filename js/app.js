@@ -48,8 +48,11 @@ Enemy.prototype.render = function() {
 };
 
 Enemy.prototype.checkCollisions = function() {
-    if (this.x - COLLISTION_WIDTH < player.x && player.x < this.x + COLLISTION_WIDTH
-        && this.y - COLLISTION_HEIGHT < player.y && player.y < this.y + COLLISTION_HEIGHT) {
+    if (this.x - COLLISTION_WIDTH < player.x
+        && player.x < this.x + COLLISTION_WIDTH
+        && this.y - COLLISTION_HEIGHT < player.y
+        && player.y < this.y + COLLISTION_HEIGHT)
+    {
         player.moveToStartPoint();
     }
 };
@@ -67,7 +70,12 @@ Player.prototype.moveToStartPoint = function() {
     this.y = 5 * CELL_HEIGHT - 10;
 };
 
-Player.prototype.update = function(dt) {
+Player.prototype.update = function() {
+    // if the player reaches the water
+    if (this.y < 0) {
+        // move the player to the start point
+        this.moveToStartPoint();
+    }
 };
 
 Player.prototype.render = function() {
@@ -102,7 +110,8 @@ Player.prototype.handleInput = function(input) {
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
-var allEnemies = [new Enemy(), new Enemy(), new Enemy(), new Enemy(), new Enemy(), new Enemy()];
+var allEnemies = [new Enemy(), new Enemy(), new Enemy(),
+                  new Enemy(), new Enemy(), new Enemy()];
 var player = new Player();
 
 // This listens for key presses and sends the keys to your
